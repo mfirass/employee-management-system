@@ -8,6 +8,8 @@ import dev.mfirass.employee_management_system.employee.dto.EmployeeUpdateRequest
 import dev.mfirass.employee_management_system.employee.internal.entity.Employee;
 import dev.mfirass.employee_management_system.employee.internal.mapper.EmployeeMapper;
 import dev.mfirass.employee_management_system.employee.internal.repository.EmployeeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -63,10 +65,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeResponse> searchEmployees(String name, String id, String department, String jobTitle, String employmentStatus, LocalDate hireDateFrom, LocalDate hireDateTo) {
-        List<Employee> employees = employeeRepository.search(name, id, department, jobTitle, employmentStatus, hireDateFrom, hireDateTo);
-        return employees.stream()
-                .map(employeeMapper::toResponse)
-                .toList();
+    public Page<EmployeeResponse> searchEmployees(String name, String id, String department, String jobTitle, String employmentStatus, LocalDate hireDateFrom, LocalDate hireDateTo, Pageable pageable) {
+        Page<Employee> employees = employeeRepository.search(name, id, department, jobTitle, employmentStatus, hireDateFrom, hireDateTo,pageable);
+        return employees.map(employeeMapper::toResponse);
     }
 }

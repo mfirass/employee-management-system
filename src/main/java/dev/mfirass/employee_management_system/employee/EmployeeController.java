@@ -5,6 +5,10 @@ import dev.mfirass.employee_management_system.employee.dto.EmployeeCreateRequest
 import dev.mfirass.employee_management_system.employee.dto.EmployeeResponse;
 import dev.mfirass.employee_management_system.employee.dto.EmployeeUpdateRequest;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,16 +56,17 @@ public class EmployeeController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<EmployeeResponse>> searchEmployees(
+    public ResponseEntity<Page<EmployeeResponse>> searchEmployees(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String id,
             @RequestParam(required = false) String department,
             @RequestParam(required = false) String jobTitle,
             @RequestParam(required = false) String employmentStatus,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hireDateFrom,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hireDateTo) {
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hireDateTo,
+            @PageableDefault(size = 10, sort = "fullName", direction = Sort.Direction.ASC) Pageable pageable) {
 
-        List<EmployeeResponse> employees = employeeService.searchEmployees(name, id, department, jobTitle, employmentStatus, hireDateFrom, hireDateTo);
+        Page<EmployeeResponse> employees = employeeService.searchEmployees(name, id, department, jobTitle, employmentStatus, hireDateFrom, hireDateTo, pageable);
         return ResponseEntity.ok(employees);
     }
 
