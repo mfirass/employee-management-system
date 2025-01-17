@@ -1,0 +1,186 @@
+openapi: 3.0.3
+info:
+  title: Employee Management API
+  version: 1.0.0
+  description: API for managing employees in a company
+servers:
+  - url: http://localhost:8080/api/v1
+paths:
+  /employees:
+    get:
+      summary: Get all employees
+      operationId: getAllEmployees
+      responses:
+        '200':
+          description: List of employees
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmployeeResponse'
+    post:
+      summary: Add a new employee
+      operationId: addEmployee
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeCreateRequest'
+      responses:
+        '201':
+          description: Employee created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponse'
+  /employees/{id}:
+    get:
+      summary: Get an employee by ID
+      operationId: getEmployeeById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Employee details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      summary: Update employee partially
+      operationId: updateEmployee
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeUpdateRequest'
+      responses:
+        '200':
+          description: Employee updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponse'
+    delete:
+      summary: Delete an employee
+      operationId: deleteEmployee
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Employee deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    EmployeeCreateRequest:
+      type: object
+      properties:
+        fullName:
+          type: string
+        jobTitle:
+          type: string
+        department:
+          type: string
+        hireDate:
+          type: string
+          format: date
+        employmentStatus:
+          type: string
+        email:
+          type: string
+          format: email
+        phoneNumber:
+          type: string
+        address:
+          type: string
+      required:
+        - fullName
+        - jobTitle
+        - department
+        - hireDate
+        - employmentStatus
+        - email
+        - phoneNumber
+        - address
+    EmployeeUpdateRequest:
+      type: object
+      properties:
+        fullName:
+          type: string
+        jobTitle:
+          type: string
+        department:
+          type: string
+        hireDate:
+          type: string
+          format: date
+        employmentStatus:
+          type: string
+        email:
+          type: string
+          format: email
+        phoneNumber:
+          type: string
+        address:
+          type: string
+    EmployeeResponse:
+      type: object
+      properties:
+        employeeId:
+          type: string
+        fullName:
+          type: string
+        jobTitle:
+          type: string
+        department:
+          type: string
+        hireDate:
+          type: string
+          format: date
+        employmentStatus:
+          type: string
+        email:
+          type: string
+          format: email
+        phoneNumber:
+          type: string
+        address:
+          type: string
+      required:
+        - employeeId
+        - fullName
+        - jobTitle
+        - department
+        - hireDate
+        - employmentStatus
+        - email
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
