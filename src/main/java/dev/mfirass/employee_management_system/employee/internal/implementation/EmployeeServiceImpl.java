@@ -1,5 +1,6 @@
 package dev.mfirass.employee_management_system.employee.internal.implementation;
 
+import dev.mfirass.employee_management_system.core.exception.EmployeeNotFoundException;
 import dev.mfirass.employee_management_system.employee.EmployeeService;
 import dev.mfirass.employee_management_system.employee.dto.EmployeeCreateRequest;
 import dev.mfirass.employee_management_system.employee.dto.EmployeeResponse;
@@ -38,18 +39,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeResponse getEmployeeById(String id) {
         return employeeRepository.findById(id)
                 .map(employeeMapper::toResponse)
-                .orElseThrow(() -> new RuntimeException("No employee found with the provided id"));
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee with ID " + id + " not found."));
     }
 
     @Override
     public void deleteEmployee(String id) {
+        if (!employeeRepository.existsById(id)) {
+            throw new EmployeeNotFoundException("Employee with ID " + id + " not found.");
+        }
         employeeRepository.deleteById(id);
     }
 
     @Override
     public EmployeeResponse updateEmployee(String id, EmployeeUpdateRequest request) {
         Employee employee = employeeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee with ID " + id + " not found."));
         employeeMapper.updateEmployeeFromRequest(request, employee);
         employeeRepository.save(employee);
         return employeeMapper.toResponse(employee);
