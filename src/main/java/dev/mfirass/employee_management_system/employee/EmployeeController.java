@@ -5,7 +5,6 @@ import dev.mfirass.employee_management_system.employee.dto.EmployeeCreateRequest
 import dev.mfirass.employee_management_system.employee.dto.EmployeeResponse;
 import dev.mfirass.employee_management_system.employee.dto.EmployeeUpdateRequest;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +13,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping(ResourceUtils.EMPLOYEE_ENDPOINT)
-@RequiredArgsConstructor
 public class EmployeeController {
     private final EmployeeService employeeService;
+
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
 
     @GetMapping
     public ResponseEntity<List<EmployeeResponse>> getAllEmployees() {
