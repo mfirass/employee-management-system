@@ -10,6 +10,7 @@ import dev.mfirass.employee_management_system.employee.internal.mapper.EmployeeM
 import dev.mfirass.employee_management_system.employee.internal.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -59,5 +60,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeMapper.updateEmployeeFromRequest(request, employee);
         employeeRepository.save(employee);
         return employeeMapper.toResponse(employee);
+    }
+
+    @Override
+    public List<EmployeeResponse> searchEmployees(String name, String id, String department, String jobTitle, String employmentStatus, LocalDate hireDateFrom, LocalDate hireDateTo) {
+        List<Employee> employees = employeeRepository.search(name, id, department, jobTitle, employmentStatus, hireDateFrom, hireDateTo);
+        return employees.stream()
+                .map(employeeMapper::toResponse)
+                .toList();
     }
 }
