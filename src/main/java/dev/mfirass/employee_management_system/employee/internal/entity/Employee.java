@@ -1,5 +1,6 @@
 package dev.mfirass.employee_management_system.employee.internal.entity;
 
+import dev.mfirass.employee_management_system.core.common.audit.Auditable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 @Data
 @Entity
 @Table(name = "employee")
-public class Employee {
+public class Employee extends Auditable {
     @Id
     @NotBlank(message = "Employee ID is required")
     @Column(name = "employee_id", columnDefinition = "VARCHAR(36)")
