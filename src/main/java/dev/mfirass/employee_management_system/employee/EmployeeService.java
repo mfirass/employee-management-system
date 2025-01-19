@@ -5,6 +5,7 @@ import dev.mfirass.employee_management_system.employee.dto.EmployeeResponse;
 import dev.mfirass.employee_management_system.employee.dto.EmployeeUpdateRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,4 +18,5 @@ public interface EmployeeService {
     void deleteEmployee(String id);
     EmployeeResponse updateEmployee(String id, EmployeeUpdateRequest request);
     List<EmployeeResponse> searchEmployees(String search);
+    List<EmployeeResponse> filterByDepartmentAndEmploymentStatus(String department, String employmentStatus);
 }

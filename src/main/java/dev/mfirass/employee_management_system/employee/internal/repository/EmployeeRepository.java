@@ -18,4 +18,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
             " LOWER(e.jobTitle) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
             " LOWER(e.employmentStatus) LIKE LOWER(CONCAT('%', :search, '%'))) ")
     List<Employee> search(@Param("search") String search);
+
+    @Query("SELECT e FROM Employee e WHERE " +
+            "(:department IS NULL OR LOWER(e.department) = LOWER(:department)) AND " +
+            "(:employmentStatus IS NULL OR LOWER(e.employmentStatus) = LOWER(:employmentStatus))")
+    List<Employee> filterByDepartmentAndEmploymentStatus(@Param("department") String department,
+                                                         @Param("employmentStatus") String employmentStatus);
 }

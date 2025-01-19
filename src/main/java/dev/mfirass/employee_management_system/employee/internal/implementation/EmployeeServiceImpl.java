@@ -72,4 +72,13 @@ public class EmployeeServiceImpl implements EmployeeService {
                 map(employeeMapper::toResponse).
                 toList();
     }
+
+    @Override
+    public List<EmployeeResponse> filterByDepartmentAndEmploymentStatus(String department, String employmentStatus) {
+        List<Employee> employees = employeeRepository.filterByDepartmentAndEmploymentStatus(department, employmentStatus);
+        return employees.
+                stream().
+                map(employeeMapper::toResponse).
+                toList();
+    }
 }

@@ -55,4 +55,12 @@ public class EmployeeController {
         List<EmployeeResponse> employees = employeeService.searchEmployees(search);
         return ResponseEntity.ok(employees);
     }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<EmployeeResponse>> filterByDepartmentAndEmploymentStatus(
+            @RequestParam String department,
+            @RequestParam String employmentStatus) {
+        List<EmployeeResponse> employees = employeeService.filterByDepartmentAndEmploymentStatus(department, employmentStatus);
+        return ResponseEntity.ok(employees);
+    }
 }

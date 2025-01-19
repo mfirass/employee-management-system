@@ -115,6 +115,37 @@ paths:
                       $ref: '#/components/schemas/EmployeeResponse'
                   totalElements:
                     type: integer
+  /employees/filter:
+    get:
+      summary: Filter employees by department and employment status
+      operationId: filterByDepartmentAndEmploymentStatus
+      parameters:
+        - name: department
+          in: query
+          description: Department to be used in the filter
+          required: true
+          schema:
+            type: string
+        - name: employmentStatus
+          in: query
+          description: Employment status to be used in the filter
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of employee filter results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EmployeeResponse'
+                  totalElements:
+                    type: integer
 components:
   schemas:
     EmployeeCreateRequest:
