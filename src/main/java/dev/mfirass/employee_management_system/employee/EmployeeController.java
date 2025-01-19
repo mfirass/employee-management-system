@@ -22,13 +22,11 @@ public class EmployeeController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<List<EmployeeResponse>> getAllEmployees() {
         return ResponseEntity.ok(employeeService.getAllEmployees());
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<EmployeeResponse> getEmployeeById(@PathVariable("id") String id) {
         EmployeeResponse employeeResponse = employeeService.getEmployeeById(id);
         return ResponseEntity.ok(employeeResponse);

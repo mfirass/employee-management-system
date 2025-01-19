@@ -23,6 +23,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/signin").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/api/**").anonymous()
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers.frameOptions().disable())
