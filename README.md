@@ -33,7 +33,7 @@ A Spring Boot-based RESTful API for managing employees within an organization. T
 4. Access the API:
    - Visit http://localhost:8080/api/v1/employees for employee endpoints.
 
-### API Endpoints:
+### API Endpoints
 
 | Method | Endpoint                        | Description                                   |
 |--------|----------------------------------|-----------------------------------------------|
@@ -43,3 +43,11 @@ A Spring Boot-based RESTful API for managing employees within an organization. T
 | PUT    | `/api/v1/employees/{id}`         | Update an existing employee                   |
 | DELETE | `/api/v1/employees/{id}`         | Delete an employee                            |
 | GET    | `/api/v1/employees/search`       | Search for employees with various filters     |
+
+### Users (For testing purposes)
+
+| Email              | Role              | Department |
+|--------------------|------------------|------------|
+| admin@company.com  | ADMINISTRATOR     | N/A        |
+| hr@company.com     | HR_PERSONNEL      | N/A        |
+| manager@company.com | MANAGER           | IT         |
