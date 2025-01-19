@@ -95,71 +95,15 @@ paths:
       summary: Search employees by various criteria
       operationId: searchEmployees
       parameters:
-        - name: name
+        - name: search
           in: query
-          description: Employee's full name
-          required: false
-          schema:
-            type: string
-        - name: id
-          in: query
-          description: Employee ID
-          required: false
-          schema:
-            type: string
-        - name: department
-          in: query
-          description: Department name
-          required: false
-          schema:
-            type: string
-        - name: jobTitle
-          in: query
-          description: Job title
-          required: false
-          schema:
-            type: string
-        - name: employmentStatus
-          in: query
-          description: Employment status (e.g., active, terminated)
-          required: false
-          schema:
-            type: string
-        - name: hireDateFrom
-          in: query
-          description: Hire date (from) in ISO 8601 format (yyyy-MM-dd)
-          required: false
-          schema:
-            type: string
-            format: date
-        - name: hireDateTo
-          in: query
-          description: Hire date (to) in ISO 8601 format (yyyy-MM-dd)
-          required: false
-          schema:
-            type: string
-            format: date
-        - name: page
-          in: query
-          description: Page number (0-based)
-          required: false
-          schema:
-            type: integer
-        - name: size
-          in: query
-          description: Number of items per page
-          required: false
-          schema:
-            type: integer
-        - name: sort
-          in: query
-          description: Sorting criteria in the format `property,asc|desc` (e.g., `fullName,asc`)
+          description: Character sequence to be used in the search
           required: false
           schema:
             type: string
       responses:
         '200':
-          description: Page of employee search results
+          description: List of employee search results
           content:
             application/json:
               schema:
@@ -169,15 +113,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/EmployeeResponse'
-                  pageable:
-                    type: object
                   totalElements:
-                    type: integer
-                  totalPages:
-                    type: integer
-                  size:
-                    type: integer
-                  number:
                     type: integer
 components:
   schemas:

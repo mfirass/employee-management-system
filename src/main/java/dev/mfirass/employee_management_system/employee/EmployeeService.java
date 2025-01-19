@@ -16,5 +16,5 @@ public interface EmployeeService {
     EmployeeResponse getEmployeeById(String id);
     void deleteEmployee(String id);
     EmployeeResponse updateEmployee(String id, EmployeeUpdateRequest request);
-    Page<EmployeeResponse> searchEmployees(String name, String id, String department, String jobTitle, String employmentStatus, LocalDate hireDateFrom, LocalDate hireDateTo, Pageable pageable);
+    List<EmployeeResponse> searchEmployees(String search);
 }

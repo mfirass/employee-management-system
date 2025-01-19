@@ -65,8 +65,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Page<EmployeeResponse> searchEmployees(String name, String id, String department, String jobTitle, String employmentStatus, LocalDate hireDateFrom, LocalDate hireDateTo, Pageable pageable) {
-        Page<Employee> employees = employeeRepository.search(name, id, department, jobTitle, employmentStatus, hireDateFrom, hireDateTo,pageable);
-        return employees.map(employeeMapper::toResponse);
+    public List<EmployeeResponse> searchEmployees(String search) {
+        List<Employee> employees = employeeRepository.search(search);
+        return employees.
+                stream().
+                map(employeeMapper::toResponse).
+                toList();
     }
 }
