@@ -2,8 +2,6 @@
 
 A Spring Boot-based RESTful API for managing employees within an organization. This application supports CRUD operations, searching, and filtering of employee records, utilizing Spring Data JPA, Hibernate, and a relational database.
 
----
-
 ## Technologies
 - Java 17
 - Spring Boot 3
@@ -12,8 +10,6 @@ A Spring Boot-based RESTful API for managing employees within an organization. T
 - Docker
 - Oracle Database (or H2 for development)
 - OpenAPI Specification (Swagger UI)
-
----
 
 ## Getting Started
 
@@ -36,6 +32,7 @@ A Spring Boot-based RESTful API for managing employees within an organization. T
    docker run -p 8080:8080 employee-management-system
 4. Access the API:
    - Visit http://localhost:8080/api/v1/employees for employee endpoints.
+
 ### API Endpoints:
 
 | Method | Endpoint                        | Description                                   |
